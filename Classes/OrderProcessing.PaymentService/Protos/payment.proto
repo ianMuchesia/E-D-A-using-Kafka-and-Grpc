@@ -1,0 +1,53 @@
+syntax = "proto3";
+
+option csharp_namespace = "OrderProcessing.Payment.Grpc";
+
+package payment;
+
+service PaymentService {
+  rpc ProcessPayment (ProcessPaymentRequest) returns (ProcessPaymentResponse);
+  rpc GetPaymentStatus (PaymentStatusRequest) returns (PaymentStatusResponse);
+}
+
+message ProcessPaymentRequest {
+  string order_id = 1;
+  string customer_id = 2;
+  double amount = 3;
+  string payment_method = 4;
+  map<string, string> payment_details = 5;
+}
+
+message ProcessPaymentResponse {
+  enum PaymentStatus {
+    SUCCESSFUL = 0;
+    FAILED = 1;
+    PENDING = 2;
+  }
+  
+  string payment_id = 1;
+  string order_id = 2;
+  PaymentStatus status = 3;
+  string transaction_id = 4;
+  string message = 5;
+}
+
+message PaymentStatusRequest {
+  string payment_id = 1;
+  string order_id = 2;
+}
+
+message PaymentStatusResponse {
+  enum PaymentStatus {
+    SUCCESSFUL = 0;
+    FAILED = 1;
+    PENDING = 2;
+  }
+  
+  string payment_id = 1;
+  string order_id = 2;
+  PaymentStatus status = 3;
+  string transaction_id = 4;
+  double amount = 5;
+  string payment_method = 6;
+  int64 transaction_date_ms = 7;
+}

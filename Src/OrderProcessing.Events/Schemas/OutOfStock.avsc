@@ -1,0 +1,40 @@
+{
+  "namespace": "OrderProcessing.Events",
+  "type": "record",
+  "name": "OutOfStock",
+  "fields": [
+    {
+      "name": "OrderId",
+      "type": "string"
+    },
+    {
+      "name": "UnavailableItems",
+      "type": {
+        "type": "array",
+        "items": {
+          "type": "record",
+          "name": "UnavailableItem",
+          "fields": [
+            {
+              "name": "ProductId",
+              "type": "string"
+            },
+            {
+              "name": "RequestedQuantity",
+              "type": "int"
+            },
+            {
+              "name": "AvailableQuantity",
+              "type": "int"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "RejectionDate",
+      "type": "long",
+      "logicalType": "timestamp-millis"
+    }
+  ]
+}

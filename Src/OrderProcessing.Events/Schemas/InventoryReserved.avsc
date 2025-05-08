@@ -1,0 +1,49 @@
+{
+  "namespace": "OrderProcessing.Events",
+  "type": "record",
+  "name": "InventoryReserved",
+  "fields": [
+    {
+      "name": "OrderId",
+      "type": "string"
+    },
+    {
+      "name": "ReservationId",
+      "type": "string"
+    },
+    {
+      "name": "ReservedItems",
+      "type": {
+        "type": "array",
+        "items": {
+          "type": "record",
+          "name": "ReservedItem",
+          "fields": [
+            {
+              "name": "ProductId",
+              "type": "string"
+            },
+            {
+              "name": "Quantity",
+              "type": "int"
+            },
+            {
+              "name": "WarehouseId",
+              "type": "string"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "ReservationDate",
+      "type": "long",
+      "logicalType": "timestamp-millis"
+    },
+    {
+      "name": "ExpirationDate",
+      "type": "long",
+      "logicalType": "timestamp-millis"
+    }
+  ]
+}

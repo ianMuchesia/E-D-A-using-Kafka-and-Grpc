@@ -1,0 +1,36 @@
+{
+  "namespace": "OrderProcessing.Events",
+  "type": "record",
+  "name": "PaymentProcessed",
+  "fields": [
+    {
+      "name": "OrderId",
+      "type": "string"
+    },
+    {
+      "name": "PaymentId",
+      "type": "string"
+    },
+    {
+      "name": "Amount",
+      "type": "double"
+    },
+    {
+      "name": "Status",
+      "type": {
+        "type": "enum",
+        "name": "PaymentStatus",
+        "symbols": ["SUCCESSFUL", "FAILED", "PENDING"]
+      }
+    },
+    {
+      "name": "TransactionDate",
+      "type": "long",
+      "logicalType": "timestamp-millis"
+    },
+    {
+      "name": "PaymentMethod",
+      "type": "string"
+    }
+  ]
+}

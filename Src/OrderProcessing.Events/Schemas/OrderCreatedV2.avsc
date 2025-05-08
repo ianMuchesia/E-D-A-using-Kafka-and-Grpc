@@ -1,0 +1,93 @@
+{
+  "namespace": "OrderProcessing.Events",
+  "type": "record",
+  "name": "OrderCreated",
+  "fields": [
+    {
+      "name": "OrderId",
+      "type": "string"
+    },
+    {
+      "name": "CustomerId",
+      "type": "string"
+    },
+    {
+      "name": "OrderDate",
+      "type": "long",
+      "logicalType": "timestamp-millis"
+    },
+    {
+      "name": "Items",
+      "type": {
+        "type": "array",
+        "items": {
+          "type": "record",
+          "name": "OrderItem",
+          "fields": [
+            {
+              "name": "ProductId",
+              "type": "string"
+            },
+            {
+              "name": "Quantity",
+              "type": "int"
+            },
+            {
+              "name": "UnitPrice",
+              "type": "double"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "TotalAmount",
+      "type": "double"
+    },
+    {
+      "name": "ShippingAddress",
+      "type": [
+        "null",
+        {
+          "type": "record",
+          "name": "Address",
+          "fields": [
+            {
+              "name": "Street",
+              "type": "string"
+            },
+            {
+              "name": "City",
+              "type": "string"
+            },
+            {
+              "name": "State",
+              "type": "string"
+            },
+            {
+              "name": "ZipCode",
+              "type": "string"
+            },
+            {
+              "name": "Country",
+              "type": "string"
+            }
+          ]
+        }
+      ],
+      "default": null
+    },
+    {
+      "name": "Priority",
+      "type": [
+        "null",
+        {
+          "type": "enum",
+          "name": "OrderPriority",
+          "symbols": ["LOW", "MEDIUM", "HIGH", "URGENT"]
+        }
+      ],
+      "default": null
+    }
+  ]
+}

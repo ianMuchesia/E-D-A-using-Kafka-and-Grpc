@@ -1,0 +1,80 @@
+syntax = "proto3";
+
+option csharp_namespace = "OrderProcessing.Inventory.Grpc";
+
+package inventory;
+
+service InventoryService {
+  rpc CheckInventory (CheckInventoryRequest) returns (CheckInventoryResponse);
+  rpc ReserveInventory (ReserveInventoryRequest) returns (ReserveInventoryResponse);
+  rpc ReleaseInventory (ReleaseInventoryRequest) returns (ReleaseInventoryResponse);
+}
+
+message CheckInventoryRequest {
+  message InventoryItem {
+    string product_id = 1;
+    int32 quantity = 2;
+  }
+  
+  string order_id = 1;
+  repeated InventoryItem items = 2;
+}
+
+message CheckInventoryResponse {
+  enum InventoryStatus {
+    AVAILABLE = 0;
+    PARTIAL = 1;
+    UNAVAILABLE = 2;
+  }
+  
+  message UnavailableItem {
+    string product_id = 1;
+    int32 requested_quantity = 2;
+    int32 available_quantity = 3;
+  }
+  
+  string order_id = 1;
+  InventoryStatus status = 2;
+  repeated UnavailableItem unavailable_items = 3;
+}
+
+message ReserveInventoryRequest {
+  message ReservationItem {
+    string product_id = 1;
+    int32 quantity = 2;
+  }
+  
+  string order_id = 1;
+  repeated ReservationItem items = 2;
+  int64 expiration_time_ms = 3;
+}
+
+message ReserveInventoryResponse {
+  enum ReservationStatus {
+    SUCCESS = 0;
+    FAILED = 1;
+    PARTIAL = 2;
+  }
+  
+  message ReservedItem {
+    string product_id = 1;
+    int32 quantity = 2;
+    string warehouse_id = 3;
+  }
+  
+  string order_id = 1;
+  string reservation_id = 2;
+  ReservationStatus status = 3;
+  repeated ReservedItem reserved_items = 4;
+  int64 reservation_expiration_ms = 5;
+}
+
+message ReleaseInventoryRequest {
+  string reservation_id = 1;
+  string order_id = 2;
+}
+
+message ReleaseInventoryResponse {
+  bool success = 1;
+  string message = 2;
+}

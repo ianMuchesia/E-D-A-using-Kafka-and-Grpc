@@ -1,0 +1,48 @@
+{
+  "namespace": "OrderProcessing.Events",
+  "type": "record",
+  "name": "OrderCreated",
+  "fields": [
+    {
+      "name": "OrderId",
+      "type": "string"
+    },
+    {
+      "name": "CustomerId",
+      "type": "string"
+    },
+    {
+      "name": "OrderDate",
+      "type": "long",
+      "logicalType": "timestamp-millis"
+    },
+    {
+      "name": "Items",
+      "type": {
+        "type": "array",
+        "items": {
+          "type": "record",
+          "name": "OrderItem",
+          "fields": [
+            {
+              "name": "ProductId",
+              "type": "string"
+            },
+            {
+              "name": "Quantity",
+              "type": "int"
+            },
+            {
+              "name": "UnitPrice",
+              "type": "double"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "TotalAmount",
+      "type": "double"
+    }
+  ]
+}
