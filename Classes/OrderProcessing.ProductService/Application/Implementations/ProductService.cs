@@ -22,7 +22,7 @@ public class ProductService : IProductService
     public async Task AddProductAsync(CreateProductDto product, CancellationToken cancellationToken = default)
     {
         _logger.LogInformation("Adding product: {Product}", product.Name);
-        var newProduct = new Product(product.Name, product.Price, product.Stock);
+        var newProduct = new Domain.Entities.Product(product.Name, product.Price, product.Stock);
 
 
         await _productRepository.AddProductAsync(newProduct, cancellationToken);
@@ -62,7 +62,7 @@ public class ProductService : IProductService
     }
 
   
-    public async Task<IEnumerable<Product>> GetAllProductsAsync(CancellationToken cancellationToken = default)
+    public async Task<IEnumerable<Domain.Entities.Product>> GetAllProductsAsync(CancellationToken cancellationToken = default)
     {
         _logger.LogInformation("Retrieving all products");
         var products = await _productRepository.GetAllProductsAsync(cancellationToken);
@@ -70,7 +70,7 @@ public class ProductService : IProductService
         return products;
     }
 
-    public async Task<Product> GetProductByIdAsync(Guid id, CancellationToken cancellationToken = default)
+    public async Task<Domain.Entities.Product> GetProductByIdAsync(Guid id, CancellationToken cancellationToken = default)
     {
         _logger.LogInformation("Retrieving product with ID: {Id}", id);
         var product = await _productRepository.GetProductByIdAsync(id, cancellationToken);

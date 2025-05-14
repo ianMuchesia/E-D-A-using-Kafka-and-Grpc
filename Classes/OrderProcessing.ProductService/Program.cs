@@ -1,3 +1,4 @@
+using OrderProcessing.ProductService.API.Services;
 using OrderProcessing.ProductService.AppDbContext;
 using OrderProcessing.ProductService.Application.Implementations;
 using OrderProcessing.ProductService.Application.Interfaces;
@@ -12,7 +13,7 @@ try
     Log.Logger = new LoggerConfiguration()
         .WriteTo.Console()
         .CreateBootstrapLogger();
-        
+
     Log.Information("Starting up ProductService");
 
     var builder = WebApplication.CreateBuilder(args);
@@ -28,15 +29,15 @@ try
     builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
     builder.Services.AddProblemDetails();
     builder.Services.AddLogging();
-    
+
     builder.Services.Configure<DbSettings>(builder.Configuration.GetSection("DbSettings"));
     builder.Services.AddSingleton<ProductDbContext>();
 
-        // Register repositories and services
+    // Register repositories and services
     builder.Services.AddScoped<IProductRepository, ProductRepository>();
     builder.Services.AddScoped<IProductService, ProductService>();
-    
-    
+
+
     var app = builder.Build();
 
     // { 
@@ -50,6 +51,8 @@ try
         app.UseSwaggerUI();
     }
 
+    app.MapGrpcService<ProductGrpcService>();
+    app.MapGet("/", () => "Product Service is running");
     app.UseHttpsRedirection();
     app.UseExceptionHandler();
     app.UseAuthorization();

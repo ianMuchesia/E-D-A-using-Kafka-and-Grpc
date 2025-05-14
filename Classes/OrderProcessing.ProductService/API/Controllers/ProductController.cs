@@ -44,7 +44,10 @@ public class ProductController : ControllerBase
     {
         _logger.LogInformation("Adding product: {Product}", product.Name);
         await _productRepository.AddProductAsync(product, cancellationToken);
-        return CreatedAtAction(nameof(GetProductById), new { Name = product.Name }, product);
+        return Ok( new { 
+            Message = "Product added successfully",
+            ProductName = product.Name
+        });
     }
 
 

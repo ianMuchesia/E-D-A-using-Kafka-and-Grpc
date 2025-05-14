@@ -5,13 +5,9 @@ namespace OrderProcessing.InventoryService.Application.Interfaces;
 
 public interface IInventoryService
 {
-    Task<InventoryCheckResult> CheckInventoryAsync(string orderId, List<InventoryCheckItem> items);
-
-    Task<InventoryReservationResult> ReserveInventoryAsync(string orderId, List<InventoryReservationItem> items, DateTimeOffset expirationTime);
-
-    Task<ReleaseInventoryResult> ReleaseInventoryAsync(string reservationId, string orderId);
-
-
-    Task<ProductInventory> GetProductInventoryAsync(string productId);
+     Task<ReservationResult> ReserveStockAsync(Guid orderId, List<(Guid ProductId, int Quantity)> items);
+    Task<bool> CompleteReservationAsync(Guid orderId);
+    Task<bool> CancelReservationAsync(Guid orderId);
+    Task<ReservationStatus> GetReservationStatusAsync(Guid orderId);
 
 }

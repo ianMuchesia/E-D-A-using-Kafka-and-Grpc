@@ -21,13 +21,13 @@ public class ProductRepository : IProductRepository
     {
         _dbContext = dbContext;
     }
-    public async Task AddProductAsync(Product product, CancellationToken cancellationToken = default)
+    public async Task AddProductAsync(Domain.Entities.Product product, CancellationToken cancellationToken = default)
     {
         await _dbContext.Product.AddAsync(product, cancellationToken);
         await SaveChangesAsync(cancellationToken);
     }
 
-    public async Task DeleteProductAsync(Product product, CancellationToken cancellationToken = default)
+    public async Task DeleteProductAsync(Domain.Entities.Product product, CancellationToken cancellationToken = default)
     {
        
             _dbContext.Product.Remove(product);
@@ -35,12 +35,12 @@ public class ProductRepository : IProductRepository
         
     }
 
-    public async Task<IEnumerable<Product>> GetAllProductsAsync(CancellationToken cancellationToken = default)
+    public async Task<IEnumerable<Domain.Entities.Product>> GetAllProductsAsync(CancellationToken cancellationToken = default)
     {
         return await _dbContext.Product.ToListAsync(cancellationToken);
     }
 
-    public async Task<Product?> GetProductByIdAsync(Guid id, CancellationToken cancellationToken = default)
+    public async Task<Domain.Entities.Product?> GetProductByIdAsync(Guid id, CancellationToken cancellationToken = default)
     {
         return await _dbContext.Product.FirstOrDefaultAsync(p => p.Id == id, cancellationToken);
     }
@@ -50,7 +50,7 @@ public class ProductRepository : IProductRepository
         await _dbContext.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task UpdateProductAsync(Product product, CancellationToken cancellationToken = default)
+    public async Task UpdateProductAsync(Domain.Entities.Product product, CancellationToken cancellationToken = default)
     {
         _dbContext.Product.Update(product);
         await SaveChangesAsync(cancellationToken);
