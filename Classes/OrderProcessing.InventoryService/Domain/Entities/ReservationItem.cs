@@ -11,6 +11,8 @@ public class ReservationItem
     public Guid ReservationId { get; private set; }
     public Guid ProductId { get; private set; }
     public int Quantity { get; private set; }
+
+    public Reservation Reservation { get; private set; } // Navigation property
     
     private ReservationItem() { } // For EF Core
     

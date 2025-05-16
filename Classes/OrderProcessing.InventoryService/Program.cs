@@ -1,4 +1,3 @@
-using OrderProcessing.InventoryService.API.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,8 +20,8 @@ if (app.Environment.IsDevelopment())
 }
 
 // Configure gRPC endpoints
-app.MapGrpcService<InventoryGrpcService>();
-app.MapGet("/", () => "Order Service is running");
+// app.MapGrpcService<InventoryGrpcService>();
+// app.MapGet("/", () => "Order Service is running");
 
 app.UseHttpsRedirection();
 

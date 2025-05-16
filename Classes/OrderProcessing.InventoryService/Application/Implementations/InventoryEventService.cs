@@ -1,20 +1,20 @@
-namespace OrderProcessing.InventoryService.Application.Implementations;
+// namespace OrderProcessing.InventoryService.Application.Implementations;
 
 
-public class InventoryEventService 
-{
+// public class InventoryEventService 
+// {
 
 
-    Task HandleOrderCreatedEventAsync(OrderCreated event);
+//     Task HandleOrderCreatedEventAsync(OrderCreated event);
 
-    Task PublishInventoryReservedEventAsync(InventoryReservation reservation);
-
-
-    Task PublishOutOfStockEventAsync(string orderId, List<UnavailableItem> unavailableItems);
+//     Task PublishInventoryReservedEventAsync(InventoryReservation reservation);
 
 
+//     Task PublishOutOfStockEventAsync(string orderId, List<UnavailableItem> unavailableItems);
 
 
-}
+
+
+// }
 
    

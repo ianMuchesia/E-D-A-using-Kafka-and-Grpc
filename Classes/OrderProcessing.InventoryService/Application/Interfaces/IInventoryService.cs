@@ -1,6 +1,8 @@
 
 
 
+using OrderProcessing.InventoryService.Domain.Enums;
+
 namespace OrderProcessing.InventoryService.Application.Interfaces;
 
 public interface IInventoryService
